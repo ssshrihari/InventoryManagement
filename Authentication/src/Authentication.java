@@ -1,3 +1,4 @@
+import Tests.LoginServiceValidation;
 import Tests.UserPasswordValidation;
 
 public class Authentication {
@@ -8,6 +9,11 @@ public class Authentication {
         ups.testNullUserPassword();
         ups.testUserPassword1();
         ups.testUserPassword2();
+
+        LoginServiceValidation lsv = new LoginServiceValidation();
+        lsv.testValidUserLogin();
+        lsv.testNullUserLogin();
+        lsv.testInvalidUserLogin();
     }
 
 }

@@ -1,6 +1,6 @@
 package Models;
 
-public class User {
+public class User{
 
     public String password;
 
