@@ -1,7 +1,7 @@
 import Tests.LoginServiceValidation;
 import Tests.UserPasswordValidation;
 
-public class Authentication {
+public class AuthenticationTestRunner {
 
     public static void main(String[] args) {
         UserPasswordValidation ups = new UserPasswordValidation();
