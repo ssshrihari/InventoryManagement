@@ -2,6 +2,7 @@ package Services;
 
 import Dao.OrderDao;
 import Exceptions.CreateOrderFailedException;
+import Exceptions.GetOrderFailedException;
 import Exceptions.OrderSaveFailedException;
 import Models.Customer;
 import Models.Order;
@@ -14,9 +15,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Logger.MyFormatter;
 import Logger.MyFilter;
+
 public class OrderMaintenanceService {
     static Logger logger = Logger.getLogger(OrderMaintenanceService.class.getName());
-    public void CreateOrder(Customer customer, Product product){
+    public void createOrder(Customer customer, Product product){
         try {
             Handler fileHandler = new FileHandler("Orders.log", 2000, 5);
             logger.addHandler(fileHandler);
@@ -38,5 +40,27 @@ public class OrderMaintenanceService {
         finally {
             logger.log(Level.INFO, "Create Order Service End");
         }
+    }
+    public Order getOrder(String OrderID)
+    {
+        try{
+            Handler fileHandler = new FileHandler("Orders.log", 2000, 5);
+            logger.addHandler(fileHandler);
+            fileHandler.setFormatter(new MyFormatter());
+            fileHandler.setFilter(new MyFilter());
+            OrderDao orderDao = new OrderDao();
+            String rawOrder = orderDao.findOrder(OrderID);
+            if(rawOrder == null)
+                throw new GetOrderFailedException();
+            String[] deserializedOrder = rawOrder.split("\\s+");
+            return new Order(deserializedOrder[0], deserializedOrder[1], new Product(deserializedOrder[2]), new Customer(deserializedOrder[3]));
+        }
+        catch (GetOrderFailedException | IOException ex){
+            logger.log(Level.INFO, "Get Order Service Failed");
+        }
+        finally {
+            logger.log(Level.INFO, "Get Order Service End");
+        }
+        return null;
     }
 }

@@ -3,6 +3,7 @@ package Models;
 import java.time.LocalDateTime;
 import Date.MyDate;
 import Exceptions.CreateOrderFailedException;
+import Exceptions.GetOrderFailedException;
 
 public class Order {
     String orderID;
@@ -18,11 +19,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public Order(String orderID,String Date, Product product, Customer customer) throws CreateOrderFailedException {
+    public Order(String orderID,String Date, Product product, Customer customer) throws GetOrderFailedException {
         this.orderDate = new MyDate().getDate().toString();
         this.orderID = orderID;
         if(product == null || customer == null)
-            throw new CreateOrderFailedException();
+            throw new GetOrderFailedException();
         this.product = product;
         this.customer = customer;
     }

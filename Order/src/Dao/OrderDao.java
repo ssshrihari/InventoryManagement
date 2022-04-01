@@ -20,7 +20,7 @@ public class OrderDao {
             throw new OrderSaveFailedException();
         }
     }
-    public Order getOrder(String OrderID) {
+    public String findOrder(String OrderID) {
         try (FileReader fr = new FileReader("DB/src/Orders.txt")) {
             BufferedReader br = new BufferedReader(fr);
             String s;
@@ -31,7 +31,7 @@ public class OrderDao {
                 for (String word : words) {
                     if (word.equals(OrderID))   //Search for the given word
                     {
-                        return constructOrder(s);
+                        return s;
                     }
                 }
             }
@@ -41,16 +41,4 @@ public class OrderDao {
         }
         return null;
     }
-        public Order constructOrder (String rawOrder){
-            String[] deserializedOrder = rawOrder.split("\\s+");
-            try{
-                return new Order(deserializedOrder[0], deserializedOrder[1], new Product(deserializedOrder[2]), new Customer(deserializedOrder[3]));
-            }
-            catch (CreateOrderFailedException ex){
-
-            }
-            return null;
-        }
-
-
 }

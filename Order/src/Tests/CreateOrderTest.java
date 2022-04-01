@@ -9,7 +9,7 @@ import Services.OrderMaintenanceService;
 public class CreateOrderTest {
     public void testCreateOrder(){
             OrderMaintenanceService oms = new OrderMaintenanceService();
-            oms.CreateOrder(new Customer("434"),new Product("232"));
+            oms.createOrder(new Customer("434"),new Product("232"));
             if(oms!=null)
                 System.out.println("testCreateOrder Passed");
             else
